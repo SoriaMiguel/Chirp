@@ -19,6 +19,7 @@ class PostsController < ApplicationController
     @post.user = current_user
     if @post.save
       render json: @post
+
     else
       render json: @post.errors.full_messages, status: 422
     end
