@@ -30,6 +30,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:body)
+    params.permit(:body, :api_token)
   end
 end
