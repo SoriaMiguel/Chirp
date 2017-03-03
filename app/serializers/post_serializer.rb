@@ -1,7 +1,6 @@
 class PostSerializer < ActiveModel::Serializer
 
-  belongs_to :user
-  git 
+  belongs_to :usergit 
   attributes :body
 
 end
