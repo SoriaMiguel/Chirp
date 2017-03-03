@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
 
+# GET /users
   def index
     @user = User.all
     render json: @user
   end
 
+
+#POST /users
   def create
     @user = User.new(user_params)
     if @user.save
@@ -14,11 +17,48 @@ class UsersController < ApplicationController
     end
   end
 
+  def following
+    # binding.pry
+    @followees = current_user.followees(User)
+    render json: @followees
+  end
+
+#POST /unfollow
+  def unfollow
+    if current_user.follows?(User.find(params[:id]))
+      current_user.toggle_follow!(User.find(params[:id]))
+      render json: ["#{current_user.username} is no longer following #{User.find(params[:id]).username}"]
+    else
+        render json: ["#{current_user.username} was never following #{User.find(params[:id]).username}"]
+    end
+  end
+
+
+#POST /follow
+  def follow
+    # current_user.toggle_follow!(User.find(params[:id]))
+    if current_user.follows?(User.find(params[:id]))
+      render json: ["#{current_user.username} is already following #{User.find(params[:id]).username}"]
+    else
+      current_user.toggle_follow!(User.find(params[:id]))
+      render json: ["#{current_user.username} is now following #{User.find(params[:id]).username}"]
+    end
+    #find the current user by it's api token, once you've found it, toggle it to be folowed based on the current user :id
+    #since we're not actually doing anything to the current user, just give us the current user
+  end
+
+
+
+  # def destroy
+  #   @user = User.find(params[:id])
+  #   @user.destroy
+  #   render json: @user
+  # end
 
 private
 
 def user_params
-  params.permit(:username, :password, :email)
+  params.permit(:name, :username, :password, :email)
 end
 
 
