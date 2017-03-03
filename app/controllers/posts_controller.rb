@@ -19,9 +19,8 @@ class PostsController < ApplicationController
     @post.user = current_user
     if @post.save
       render json: @post
-
     else
-      render json: @post.errors.full_messages, status: 422
+      render json: @post.errors.full_messages, status: 400
     end
   end
 
@@ -30,6 +29,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:body, :api_token)
+    params.permit(:body)
   end
 end
