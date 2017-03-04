@@ -21,7 +21,7 @@ before_action :require_user, only: [:follow, :unfollow]
 
   def following
     # binding.pry
-    @followees = current_user.followees(User)
+    @followees = User.find(params[:id]).followees(User)
     render json: @followees
   end
 
