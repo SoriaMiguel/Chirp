@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/follow/:id' => 'users#follow'
   post '/unfollow/:id' => 'users#unfollow'
   get '/users/:id/following' => 'users#following'
+  get '/users/:id/follwers' => 'users#followers'
   # post '/posts/:username' => 'posts#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

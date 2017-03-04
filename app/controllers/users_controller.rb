@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+before_action :require_user, only: [:follow, :unfollow]
+
 # GET /users
   def index
     @user = User.all

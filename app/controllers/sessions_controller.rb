@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+
+# POST /signin
   def create
     @user = User.find_by(username: params[:username]).try(:authenticate, params[:password])
     if @user
@@ -7,4 +9,6 @@ class SessionsController < ApplicationController
       render json: ["User not found."], status: 401
     end
   end
+
+
 end
