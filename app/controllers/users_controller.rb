@@ -8,6 +8,16 @@ before_action :require_user, only: [:follow, :unfollow]
     render json: @user
   end
 
+#GET /login
+  def login
+    @user = User.find_by(username: params[:username]).&authenticate(params[:password])
+    if @user
+      render json: @user
+    else
+      render json: @user.errors.full_messages
+    end
+  end
+
 
 #POST /users
   def create
@@ -38,7 +48,6 @@ before_action :require_user, only: [:follow, :unfollow]
 
 #POST /follow
   def follow
-    # current_user.toggle_follow!(User.find(params[:id]))
     if current_user.follows?(User.find(params[:id]))
       render json: ["#{current_user.username} is already following #{User.find(params[:id]).username}"]
     else

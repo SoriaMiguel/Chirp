@@ -31,7 +31,7 @@ gem 'rails_12factor', group: :production
 # gem 'capistrano-rails', group: :development
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors'
+gem 'rack-cors', :require => 'rack/cors'
 gem "socialization"
 
 group :development, :test do
