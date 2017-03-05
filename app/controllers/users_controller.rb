@@ -19,15 +19,15 @@ before_action :require_user, only: [:follow, :unfollow]
     end
   end
 
-#POST /users/:id/following
+#GET /users/:id/following
   def following
     @followees = User.find(params[:id]).followees(User)
     render json: @followees
   end
 
-  # /users/:id/followers
+  #GET /users/:id/followers
   def followers
-    @followers = User.find(params[:id]).followers(User)
+    @followers = User.followers(User.find(params[:id]))
     render json: @followees
   end
 
