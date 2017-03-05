@@ -8,16 +8,6 @@ before_action :require_user, only: [:follow, :unfollow]
     render json: @user
   end
 
-#GET /login
-  def login
-    @user = User.find_by(username: params[:username]).&authenticate(params[:password])
-    if @user
-      render json: @user
-    else
-      render json: @user.errors.full_messages
-    end
-  end
-
 
 #POST /users
   def create
@@ -29,9 +19,15 @@ before_action :require_user, only: [:follow, :unfollow]
     end
   end
 
+#POST /users/:id/following
   def following
-    # binding.pry
     @followees = User.find(params[:id]).followees(User)
+    render json: @followees
+  end
+
+  # /users/:id/followers
+  def followers
+    @followers = User.find(params[:id]).followers(User)
     render json: @followees
   end
 
@@ -59,12 +55,6 @@ before_action :require_user, only: [:follow, :unfollow]
   end
 
 
-
-  # def destroy
-  #   @user = User.find(params[:id])
-  #   @user.destroy
-  #   render json: @user
-  # end
 
 private
 

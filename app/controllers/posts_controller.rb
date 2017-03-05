@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  # skip_before_action :index
+
 
 # GET /posts
   def index
