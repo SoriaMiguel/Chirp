@@ -27,8 +27,8 @@ before_action :require_user, only: [:follow, :unfollow]
 
   #GET /users/:id/followers
   def followers
-    @followers = User.followers(User.find(params[:id]))
-    render json: @followees
+    @followers = User.find(params[:id]).followers(User)
+    render json: @followers
   end
 
 #POST /unfollow
